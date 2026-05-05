@@ -1,0 +1,173 @@
+ <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- مهم للموبايل 📱 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>من نحن</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            direction: rtl;
+            text-align: center;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about {
+            padding: 30px 10px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 85%;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: right;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card h2 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        .card p, .card li {
+            font-size: 15px;
+        }
+
+        .card ul {
+            padding-right: 18px;
+        }
+
+        .card li {
+            margin-bottom: 6px;
+        }
+
+        .card a {
+            display: block;
+            margin-top: 8px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        /* 📱 موبايل */
+        @media (max-width: 600px) {
+            .cards {
+                width: 95%;
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<section class="about">
+    <h1>🧑‍💻 من نحن</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>عن الفريق</h2>
+            <p>
+                نحن فريق تقني نعمل على تطوير حلول ذكية باستخدام الذكاء الاصطناعي والتقنيات الحديثة،
+                ونسعى لتقديم مشاريع مبتكرة تساعد في حل المشكلات الصناعية بطريقة فعالة وآمنة.
+            </p>
+            <p>
+                مشروعنا الحالي <strong>MEGASYST</strong> يركز على تحسين طرق صيانة وفحص الأنابيب.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>🎯 أهداف التيم</h2>
+            <ul>
+                <li>تطوير نظام ذكي لفحص الأنابيب بدقة عالية</li>
+                <li>استخدام الذكاء الاصطناعي لاكتشاف الأعطال</li>
+                <li>تقليل الفحص اليدوي والمخاطر</li>
+                <li>تحويل الصيانة إلى Predictive Maintenance</li>
+                <li>اكتساب خبرة عملية في البرمجة والهندسة</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🧩 أقسام التيم</h2>
+            <ul>
+                <li>Frontend: تصميم الواجهة</li>
+                <li>Backend: ربط السيرفر ومعالجة البيانات</li>
+                <li>AI Team: نموذج الذكاء الاصطناعي</li>
+                <li>Hardware: الروبوت والمكونات</li>
+                <li>Testing: اختبار النظام</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📌 تفاصيل المشروع</h2>
+            <p>
+                نظام MEGASYST روبوت ذكي لفحص الأنابيب من الداخل باستخدام كاميرات و AI.
+            </p>
+            <p>
+                يقوم باكتشاف الشقوق والتآكل في الوقت الحقيقي بدقة عالية جدًا.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>⭐ أهمية المشروع</h2>
+            <ul>
+                <li>تقليل الفحص المكلف</li>
+                <li>تحديد الأعطال بدقة</li>
+                <li>تقليل وقت التوقف</li>
+                <li>خفض تكاليف التشغيل</li>
+                <li>تطوير الصيانة الذكية</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📞 التواصل</h2>
+            <p>01000000000</p>
+            <p>01111111111</p>
+ <a href="https://www.facebook.com/people/Nexa-Vision-Team/61584671164760/?rdid=JUNEYI2cILeJkAga&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CFSw4Wv1b%2F" target="_blank">
+                Facebook
+            </a>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

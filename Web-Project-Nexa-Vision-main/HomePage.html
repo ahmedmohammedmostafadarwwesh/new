@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- محمد صلاح فرغلي -->
+ <!-- مساعدة أحمد محمد مصطفي -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGASYST - نظام الفحص الذكي للأنابيب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #4dabf7;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        #navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+        }
+
+        #navbar li {
+            padding: 0 20px;
+            position: relative;
+        }
+
+        #navbar li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        #navbar li a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, #4dabf7, #c5f6fa);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        #navbar li a:hover::before,
+        #navbar li a.active::before {
+            width: 100%;
+        }
+
+        #navbar li a:hover,
+        #navbar li a.active {
+            color: #c5f6fa;
+        }
+
+        #mobile {
+            display: none;
+            align-items: center;
+        }
+
+        #bar {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #bar:hover {
+            transform: rotate(90deg);
+            color: #c5f6fa;
+        }
+
+        /* Hero Section - بدون جسيمات متحركة */
+        .hero {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a8f 50%, #0d6efd 100%);
+            text-align: center;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #e9ecef;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0d6efd;
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #1a3a8f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a3a8f;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #0d6efd;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid #0d6efd;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #1a3a8f;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a3a8f;
+        }
+
+        /* Tech Section */
+        .tech {
+            padding: 4rem 2rem;
+            background: #e9f7fe;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-item h4 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tech-item h4 i {
+            margin-left: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a8f 50%, #0d6efd 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0d6efd, #4dabf7, #0d6efd);
+            background-size: 200% 100%;
+            animation: waveGradient 3s linear infinite;
+        }
+
+        @keyframes waveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        footer .logo {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #c5f6fa;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-links i {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-links a:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Dashboard link is now handled dynamically by JavaScript based on user authentication */
+        @media (max-width:799px) {
+            #header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            #navbar {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+                padding: 1rem 0;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            #navbar.active {
+                display: flex;
+            }
+
+            #navbar li {
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            #mobile {
+                display: flex;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h1>MEGASYST</h1>
+        </div>
+
+        <nav>
+            <ul id="navbar">
+                <li><a class="active" href="#home">الرئيسية</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#tech">التقنية</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="index.html">تسجيل الدخول</a></li>
+                <li><a href="Dashboard.html">عرض البيانات </a></li>
+                <li><a href="Control.html">نظام التحكم</a></li>
+            </ul>
+        </nav>
+
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <!-- تمت إزالة canvas الجسيمات المتحركة -->
+        <div class="hero-content">
+            <h2>MEGASYST: نظام فحص الأنابيب الذكي</h2>
+            <p>
+                تحويل عمليات الصيانة من تفاعلية إلى تنبؤية باستخدام الذكاء الاصطناعي وتحديد المواقع الدقيق.
+                حل متكامل للكشف عن العيوب في الأنابيب بدقة تحت السنتيمتر وتقليل التكاليف والوقت المهدر.
+            </p>
+            <a href="#features" class="cta-button">اكتشف المزيد <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">المميزات الرئيسية</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>تحديد مكاني فائق الدقة</h3>
+                <p>دقة تحديد موقع العيوب تصل إلى أقل من سنتيمتر باستخدام مشفر دوراني وخوارزميات تصحيح الانزلاق.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <h3>رؤية بالذكاء الاصطناعي</h3>
+                <p>تحليل فيديو في الزمن الحقيقي باستخدام YOLOv8 للكشف التلقائي عن التآكل والتسربات وتصنيف الخطورة.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-tools"></i></div>
+                <h3>تصميم ميكانيكي متين</h3>
+                <p>هيكل أسطواني مضغوط مع حماية IP67 ضد الماء والغبار، مناسب للعمل في أصعب الظروف.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>صيانة تنبؤية</h3>
+                <p>تحويل البيانات إلى رؤى هندسية قابلة للتنفيذ، مما يقلل من وقت التوقف وتكاليف التشغيل.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech" id="tech">
+        <h2 class="section-title">الأساس التقني</h2>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <h4><i class="fas fa-microchip"></i> العتاد</h4>
+                <p>يعتمد على وحدات معالجة منخفضة التكلفة مثل Raspberry Pi/Jetson Nano، مع تصميم مطبوع ثلاثي الأبعاد.</p>
+            </div>
+            <div class="tech-item">
+                <h4><i class="fas fa-map-marker-alt"></i> نظام التحديد</h4>
+                <p>مشفر دوراني مع خوارزميات لتصحيح انزلاق العجلات للحصول على دقة تحديد مكاني فائقة.</p>
+            </div>
+            <div class="tech-item">
+                <h4><i class="fas fa-camera"></i> نظام الرؤية</h4>
+                <p>كاميرا محمية بمستوى IP67 مع معالجة فيديو مباشرة باستخدام نموذج YOLOv8 للكشف عن العيوب.</p>
+            </div>
+            <div class="tech-item">
+                <h4><i class="fas fa-shield-alt"></i> الحماية والتكيف</h4>
+                <p>هيكل مقاوم للماء والغبار، مع طلاء عازل للإلكترونيات لضمان العمل في البيئات الرطبة والصناعية.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h2>MEGASYST</h2>
+        </div>
+        <p>نظام فحص الأنابيب الذكي – تحويل الصيانة إلى علم تنبؤي دقيق.</p>
+        <p>© 2025 فريق MEGASYST. جميع الحقوق محفوظة.</p>
+        <div class="footer-links">
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fas fa-globe"></i></a>
+            <a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <!-- Dashboard Content for Logged-in Users -->
+    <div id="dashboard-content" style="display: none;">
+        <section class="hero" id="dashboard" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h2>لوحة تحكم المستخدم</h2>
+                <p>عرض بيانات الفحص والمعلومات المتاحة</p>
+            </div>
+        </section>
+
+        <section class="features" id="data">
+            <h2 class="section-title">بيانات الفحص</h2>
+            <div id="dashboard-data" class="max-w-6xl mx-auto">
+                <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                    <p>جاري تحميل البيانات...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Guest Content (Original Landing Page) -->
+    <div id="guest-content">
+
+    <script src="nexa_vision_client.js"></script>
+    <script>
+        // Mobile menu toggle
+        const bar = document.getElementById("bar");
+        const navbar = document.getElementById("navbar");
+
+        if (bar) {
+            bar.addEventListener("click", () => {
+                navbar.classList.toggle("active");
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute("href"));
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+
+        // Active link highlighting on scroll
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll("#navbar li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+        // Initialize API client
+        const client = new NexaVisionClient();
+
+        // Authentication and role-based navigation
+        async function checkAuthAndUpdateNav() {
+            const token = localStorage.getItem('nexavision_token');
+            const user = JSON.parse(localStorage.getItem('nexavision_user') || 'null');
+
+            if (token && user) {
+                // User is logged in - show dashboard
+                document.getElementById('guest-content').style.display = 'none';
+                document.getElementById('dashboard-content').style.display = 'block';
+
+                // Update navbar for logged in user
+                updateNavbarForUser(user);
+
+                // Load dashboard data
+                await loadDashboardData();
+            } else {
+                // User not logged in - show landing page
+                document.getElementById('guest-content').style.display = 'block';
+                document.getElementById('dashboard-content').style.display = 'none';
+            }
+        }
+
+        function updateNavbarForUser(user) {
+            const navbar = document.getElementById('navbar');
+            let navHtml = `
+                <li><a class="active" href="#dashboard">لوحة التحكم</a></li>
+                <li><a href="#data">البيانات</a></li>
+                <li><a href="Control.html">نظام التحكم</a></li>
+            `;
+
+            if (user.role === 'admin') {
+                navHtml += `<li><a href="Dashboard.html">إدارة المستخدمين</a></li>`;
+            }
+
+            navHtml += `<li><a href="#" onclick="logout()">تسجيل الخروج (${user.username})</a></li>`;
+
+            navbar.innerHTML = navHtml;
+        }
+
+        async function loadDashboardData() {
+            try {
+                const data = await client.getDashboard();
+                displayDashboardData(data);
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                document.getElementById('dashboard-data').innerHTML = `
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        <p>حدث خطأ في تحميل البيانات. يرجى المحاولة مرة أخرى.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayDashboardData(rows) {
+            const container = document.getElementById('dashboard-data');
+
+            if (!rows || rows.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        <p>لا توجد بيانات متاحة حالياً.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">بيانات الفحص</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full table-auto">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المعرف</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الاسم</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 1</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 2</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 3</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 4</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 5</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البيانات 6</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            rows.forEach(row => {
+                html += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.id}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.name}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col1}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col2}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col3}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col4}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col5}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${row.col6}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function logout() {
+            client.logout();
+            // Redirect to login page
+            window.location.href = 'index.html';
+        }
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthAndUpdateNav();
+        });
+    </script>
+</body>
+</html>

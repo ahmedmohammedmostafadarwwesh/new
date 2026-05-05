@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="relative font-inter antialiased">
+ <header id="header">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h1>MEGASYST</h1>
+        </div>
+
+        <nav>
+            <ul id="navbar">
+                <li><a href="#contact" style="font-size: 24px;">اتصل بنا</a></li>
+                 <li><a href="Control.html" style="font-size: 24px;">نظام التحكم</a></li>
+                <li><a href="index.html" style="font-size: 24px;">الرئيسية</a></li>
+
+
+            </ul>
+        </nav>
+
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </header>
+
+
+    <main class="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-5 py-24">
+            <div class="flex justify-center">
+
+                <div class="w-full max-w-9xl bg-white shadow-xl rounded-2xl">
+                    <header class="px-4 py-3 border-b border-slate-200">
+                        <h2 class="font-semibold text-slate-900">Dashboard</h2>
+                    </header>
+                    <div class="p-3">
+
+                        <!-- Table -->
+                        <div class="overflow-x-auto">
+                        <div id="dashboard-summary" class="mb-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 shadow-sm">
+                            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Current command</p>
+                                    <p id="command-value" class="mt-2 text-lg font-semibold text-slate-900">Loading…</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Detections</p>
+                                    <p id="detections-value" class="mt-2 text-lg font-semibold text-slate-900">Loading…</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Distance</p>
+                                    <p id="distance-value" class="mt-2 text-lg font-semibold text-slate-900">Loading…</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Encoder count</p>
+                                    <p id="encoder-value" class="mt-2 text-lg font-semibold text-slate-900">Loading…</p>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table-auto w-full">
+                                <!-- Table header -->
+                                <thead class="text-[13px] text-slate-500/70">
+                                    <tr>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">#</div>
+                                        </th>                                        
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Name</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 1</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 2</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 3</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 4 best</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 5 Meduim</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left">Col 6 Danger</div>
+                                        </th>
+                                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                                            <div class="font-medium text-left sr-only">Action</div>
+                                        </th>                                        
+                                    </tr>
+                                </thead>
+                                <!-- Table body -->
+                                <tbody id="dashboard-body" class="text-sm font-medium">
+                                    <!-- rows populated by JavaScript -->
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                               <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_1</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 1</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 1</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 1</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">60%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">30%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">10%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">2</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_2</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 2</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 2</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 2</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">40%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">10%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">3</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_3</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 3</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 3</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 3</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">30%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">20%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">4</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_4</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 4</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 4</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 4</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">70%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">30%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">10%</div>
+                                        </td> 
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                    
+                                    </tr>
+                                    <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">5</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_5</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 5</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 5</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 5</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">20%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">40%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">40%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                                                        <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">6</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_6</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 6</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 6</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 6</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">10%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">40%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                                                        <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">7</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_7</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 7</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 7</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 7</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">45%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">5%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                                                        <!-- Row -->
+                                    <tr>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">8</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="flex items-center">
+                                                 <img src="/I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                                <div class="text-slate-900">Name_8</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-500">D A 8</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D B 8</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-slate-900">D C 8</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-emerald-500">0%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-yellow-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <div class="text-red-500">50%</div>
+                                        </td>
+                                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                                Action
+                                            </button>
+                                        </td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+    <script>
+        async function loadDashboard() {
+            const tbody = document.getElementById('dashboard-body');
+            const commandEl = document.getElementById('command-value');
+            const detectionsEl = document.getElementById('detections-value');
+            const distanceEl = document.getElementById('distance-value');
+            const encoderEl = document.getElementById('encoder-value');
+
+            if (!tbody) return;
+            tbody.innerHTML = ''; // clear any placeholder rows
+            try {
+                const res = await fetch('http://localhost:8001/api/dashboard');
+                if (!res.ok) throw new Error('Network response was not ok');
+                const data = await res.json();
+
+                commandEl.textContent = 'N/A';
+                detectionsEl.textContent = 'None';
+                distanceEl.textContent = 'N/A';
+                encoderEl.textContent = 'N/A';
+
+                data.forEach((row) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-slate-500">${row.id}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="flex items-center">
+                                <img src="I1.img.jpg" alt="" class="shrink-0 mr-2 sm:mr-3 rounded-full" width="36" height="36" />
+                                <div class="text-slate-900">${row.name}</div>
+                            </div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-slate-500">${row.col1}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-slate-900">${row.col2}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-slate-900">${row.col3}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-emerald-500">${row.col4}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-yellow-500">${row.col5}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <div class="text-red-500">${row.col6}</div>
+                        </td>
+                        <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3">
+                            <button class="h-8 whitespace-nowrap justify-center rounded-full px-6 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                Action
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error('Failed to load dashboard data', err);
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:20px; color:red;">Error loading data: ${err.message}</td></tr>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+
+</html>

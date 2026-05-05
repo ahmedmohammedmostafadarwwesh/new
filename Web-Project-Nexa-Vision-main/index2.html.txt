@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGASYST - التحكم بالروبوت</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* الهيدر */
+        header {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #4dabf7;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #c5f6fa;
+        }
+
+        /* القسم الرئيسي للتحكم */
+        .control-panel {
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 70vh;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a3a8f;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #0d6efd;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .robot-status {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-header i {
+            font-size: 3rem;
+            color: #0d6efd;
+        }
+
+        .status-header h3 {
+            font-size: 1.8rem;
+            color: #1a3a8f;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .status-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a3a8f;
+        }
+
+        .status-value span {
+            font-size: 1rem;
+            color: #6c757d;
+            font-weight: normal;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .control-btn {
+            background: white;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 20px;
+            font-size: 2rem;
+            color: #1a3a8f;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 110, 253, 0.2);
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.large {
+            grid-column: span 3;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #0d6efd;
+            color: white;
+        }
+
+        .control-btn.large:hover {
+            background: #1a3a8f;
+            border-color: white;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .action-btn {
+            background: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            color: #1a3a8f;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .action-btn:hover {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        .action-btn.danger:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .action-btn.success:hover {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        /* الفوتر */
+        footer {
+            background: #1a3a8f;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: #c5f6fa;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        /* تجاوبية */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .control-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .control-btn.large {
+                grid-column: span 2;
+            }
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h1>MEGASYST</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="control.html" class="active">التحكم</a></li>
+                <li><a href="#status">الحالة</a></li>
+                <li><a href="#settings">الإعدادات</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- لوحة التحكم -->
+    <section class="control-panel" id="control">
+        <h2 class="section-title">لوحة تحكم الروبوت</h2>
+        
+        <!-- حالة الروبوت -->
+        <div class="robot-status">
+            <div class="status-header">
+                <i class="fas fa-robot"></i>
+                <h3>حالة الروبوت الحالية</h3>
+            </div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-label"><i class="fas fa-battery-three-quarters"></i> البطارية</div>
+                    <div class="status-value">87% <span>/ 100%</span></div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label"><i class="fas fa-map-marker-alt"></i> الموقع</div>
+                    <div class="status-value">3.27 <span>متر</span></div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label"><i class="fas fa-video"></i> الكاميرا</div>
+                    <div class="status-value">نشطة <span>online</span></div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label"><i class="fas fa-wifi"></i> الاتصال</div>
+                    <div class="status-value">قوي <span>5G</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- أزرار التحكم بالحركة -->
+    <div class="control-grid">
+    <!-- الصف الأول: الأزرار العلوية -->
+    <div></div>
+    <button class="control-btn" title="أعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <div></div>
+    
+    <!-- الصف الثاني: أزرار المنتصف -->
+    <button class="control-btn" title="يمين">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+    <button class="control-btn stop" title="توقف">
+        <i class="fas fa-stop"></i>
+    </button>
+    <button class="control-btn" title="يسار">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    
+    <!-- الصف الثالث: الأزرار السفلية -->
+    <div></div>
+    <button class="control-btn" title="أسفل">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+    <div></div>
+</div>
+
+<!-- زر المسح الضوئي -->
+
+<div style="text-align: center; margin: 30px auto; max-width: 400px;">
+    <button class="scan-btn" style="width: 100%; padding: 18px; background: linear-gradient(145deg, #0d6efd, #0a58ca); border: none; border-radius: 50px; font-size: 1.3rem; color: white; cursor: pointer; box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3); transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+        <i class="fas fa-play"></i> بدء المسح الضوئي
+    </button>
+</div>
+<!-- أضف هذا الـ CSS للتأثير -->
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+        <!-- أزرار الإجراءات -->
+        <div class="action-buttons">
+            <button class="action-btn success"><i class="fas fa-camera"></i> التقاط صورة</button>
+            <button class="action-btn"><i class="fas fa-lightbulb"></i> إضاءة</button>
+            <button class="action-btn"><i class="fas fa-sync-alt"></i> معايرة</button>
+            <button class="action-btn danger"><i class="fas fa-exclamation-triangle"></i> إيقاف طوارئ</button>
+            <button class="action-btn"><i class="fas fa-download"></i> تحميل البيانات</button>
+            <button class="action-btn"><i class="fas fa-home"></i> العودة للنقطة الأولى</button>
+        </div>
+
+        <!-- معلومات إضافية -->
+        <div style="text-align: center; margin-top: 2rem; color: #6c757d;">
+            <p><i class="fas fa-info-circle"></i> آخر تحديث: منذ 5 ثواني | دقة الموقع: ±0.5 سم</p>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="contact">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h2>MEGASYST</h2>
+        </div>
+        <p>نظام فحص الأنابيب الذكي – تحويل الصيانة إلى علم تنبؤي دقيق.</p>
+        <p>© 2025 فريق MEGASYST. جميع الحقوق محفوظة.</p>
+        <div class="footer-links">
+            <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </footer>
+
+</body>
+</html>

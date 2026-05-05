@@ -1,0 +1,704 @@
+!DOCTYPE html
+html lang=ar dir=rtl
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleMEGASYST  لوحة التحكم المتقدمةtitle
+    link rel=stylesheet href=httpscdnjs.cloudflare.comajaxlibsfont-awesome6.4.0cssall.min.css
+    style
+         {
+            margin 0;
+            padding 0;
+            box-sizing border-box;
+            font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color #f8f9fa;
+            color #333;
+            line-height 1.6;
+        }
+
+         الهيدر 
+        header {
+            background linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+            color white;
+            padding 1rem 2rem;
+            display flex;
+            justify-content space-between;
+            align-items center;
+            box-shadow 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .logo { display flex; align-items center; gap 15px; }
+        .logo i { font-size 2.5rem; color #4dabf7; }
+        .logo h1 { font-size 1.8rem; font-weight 700; }
+
+        nav { flex 1; display flex; justify-content center; }
+        #navbar { display flex; align-items center; justify-content center; list-style none; }
+        #navbar li { padding 0 20px; position relative; }
+        #navbar li a { text-decoration none; font-size 1.1rem; font-weight 600; color white; transition color 0.3s ease; padding 5px 0; position relative; }
+        #navbar li abefore { content ''; position absolute; width 0; height 2px; bottom 0; left 50%; background linear-gradient(90deg, #4dabf7, #c5f6fa); transition all 0.3s ease; transform translateX(-50%); }
+        #navbar li ahoverbefore, #navbar li a.activebefore { width 100%; }
+        #navbar li ahover, #navbar li a.active { color #c5f6fa; }
+
+         القسم الرئيسي للتحكم 
+        .control-panel {
+            padding 2rem 2rem 4rem;
+            background linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('httpsimages.unsplash.comphoto-1581094794329-c8112a89af12ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size cover;
+            background-position center;
+            min-height 70vh;
+        }
+
+        .section-title {
+            text-align center;
+            font-size 2.5rem;
+            margin-bottom 2rem;
+            color #1a3a8f;
+            position relative;
+        }
+        .section-titleafter {
+            content ''; display block; width 80px; height 4px; background #0d6efd; margin 10px auto; border-radius 2px;
+        }
+
+         قسم الفيديو 
+        .video-section {
+            max-width 1200px; margin 0 auto 2rem; background #1a1a2e; border-radius 30px; padding 1.5rem; box-shadow 0 25px 50px -12px rgba(0, 0, 0, 0.5); border 1px solid rgba(255,255,255,0.1);
+        }
+        .video-container { position relative; width 100%; border-radius 20px; overflow hidden; background #000; aspect-ratio 169; }
+        
+        .video-placeholder {
+            width 100%; height 100%; object-fit cover; display block; transition transform 0.3s ease, filter 0.1s linear; 
+        }
+
+         علامة اللايف وعلامة التسجيل 
+        .video-overlay-badges { position absolute; top 20px; left 20px; right 20px; display flex; justify-content space-between; pointer-events none; z-index 10; }
+        .live-badge { background rgba(40, 167, 69, 0.9); color white; padding 6px 15px; border-radius 50px; font-weight bold; font-size 0.9rem; display flex; align-items center; gap 8px; box-shadow 0 2px 10px rgba(0,0,0,0.3); border 1px solid rgba(255,255,255,0.3); }
+        .live-badge .pulse-dot { width 10px; height 10px; background white; border-radius 50%; animation pulse-white 1.5s infinite; }
+        .recording-badge { background rgba(220, 53, 69, 0.9); color white; padding 6px 15px; border-radius 50px; font-size 0.9rem; display none; align-items center; gap 8px; animation pulse-red 1.5s infinite; border 1px solid rgba(255,255,255,0.3); }
+        
+        @keyframes pulse-white { 0% { transform scale(1); opacity 1; } 50% { transform scale(1.4); opacity 0.5; } 100% { transform scale(1); opacity 1; } }
+        @keyframes pulse-red { 0% { opacity 1; } 50% { opacity 0.5; } 100% { opacity 1; } }
+
+        .video-info-bar { display grid; grid-template-columns repeat(4, 1fr); gap 1rem; margin-top 1rem; background rgba(255,255,255,0.05); padding 1rem; border-radius 15px; }
+        .video-info-item { text-align center; color white; }
+        .video-info-label { font-size 0.8rem; color #aaa; margin-bottom 0.3rem; }
+        .video-info-value { font-size 1.1rem; font-weight bold; color #0d6efd; }
+
+        .main-layout { display grid; grid-template-columns 1fr 1fr 1fr; gap 30px; max-width 1400px; margin 0 auto; align-items start; }
+        .panel { background white; padding 1.5rem; border-radius 24px; box-shadow 0 15px 35px rgba(0,0,0,0.1); border 1px solid rgba(255,255,255,0.5); transition transform 0.3s; }
+        .panelhover { transform translateY(-5px); }
+        .panel-title { font-size 1.4rem; color #1a3a8f; margin-bottom 1.5rem; display flex; align-items center; gap 10px; border-bottom 2px solid #f0f0f0; padding-bottom 1rem; }
+        .panel-title i { color #0d6efd; }
+
+         حالة الروبوت 
+        .status-grid { display grid; grid-template-columns repeat(2, 1fr); gap 1.2rem; }
+        .status-item { background #f8f9fa; padding 1.2rem 1rem; border-radius 18px; text-align center; transition all 0.3s; border 1px solid #e9ecef; }
+        .status-itemhover { background #e7f1ff; border-color #0d6efd; }
+        .status-label { font-size 0.85rem; color #6c757d; margin-bottom 0.5rem; display flex; align-items center; justify-content center; gap 5px; }
+        .status-value { font-size 1.6rem; font-weight bold; color #1a3a8f; line-height 1.2; }
+        .status-value span { font-size 0.9rem; color #6c757d; font-weight normal; }
+        .status-value.offline { color #dc3545; }
+
+         أزرار التحكم بالحركة 
+        .control-grid { display grid; grid-template-columns repeat(3, 1fr); gap 1rem; margin 0.5rem 0; }
+        .control-btn { background white; border none; padding 1.2rem; border-radius 18px; font-size 1.8rem; color #1a3a8f; cursor pointer; box-shadow 0 5px 15px rgba(0,0,0,0.05); transition all 0.2s; border 2px solid #f0f0f0; display flex; align-items center; justify-content center; user-select none; -webkit-user-select none;}
+        .control-btnhovernot(disabled) { transform scale(1.05); background #0d6efd; color white; border-color #0d6efd; box-shadow 0 10px 20px rgba(13, 110, 253, 0.3); }
+        .control-btnactivenot(disabled) { transform scale(0.95); }
+        .control-btn.stop { background #dc3545; color white; border-color #dc3545; }
+        .control-btn.stophovernot(disabled) { background #bb2d3b; }
+
+         أزرار الإجراءات 
+        .action-buttons { display grid; grid-template-columns repeat(2, 1fr); gap 0.8rem; margin 1rem 0; }
+        .action-btn { background white; border none; padding 1rem; border-radius 16px; font-size 1rem; font-weight 500; color #1a3a8f; cursor pointer; box-shadow 0 5px 10px rgba(0,0,0,0.03); transition all 0.2s; display flex; flex-direction column; align-items center; justify-content center; gap 4px; border 1px solid #e9ecef; }
+        .action-btn i { font-size 1.1rem; margin-bottom 2px; }
+        .action-btnhover { background #0d6efd; color white; border-color #0d6efd; transform translateY(-2px); }
+        
+        .btn-shortcut { font-size 0.75rem; color #888; font-weight normal; font-family monospace; }
+        .action-btnhover .btn-shortcut { color #e0e0e0; }
+
+        .slider-panel { grid-column span 2; flex-direction column !important; align-items flex-start !important; background #f8f9fa; cursor default !important; }
+        .slider-panelhover { background #fff !important; color #1a3a8f !important; transform none !important; border-color #e9ecef !important; }
+        .action-btn.successhover { background #28a745; border-color #28a745; }
+        .action-btn.dangerhover { background #dc3545; border-color #dc3545; }
+
+        .scan-btn { width 100%; padding 1.2rem; background linear-gradient(145deg, #0d6efd, #0a58ca); border none; border-radius 40px; font-size 1.3rem; font-weight 600; color white; cursor pointer; box-shadow 0 10px 25px rgba(13, 110, 253, 0.4); transition all 0.3s; display inline-flex; align-items center; justify-content center; gap 12px; margin 1.5rem 0 0.5rem; border 2px solid transparent; }
+        .scan-btnhover { background linear-gradient(145deg, #0a58ca, #084298); transform scale(1.02); box-shadow 0 15px 30px rgba(13, 110, 253, 0.5); }
+        .scan-btnactive { transform scale(0.98); }
+
+        .info-text { text-align center; margin-top 1.5rem; padding 1rem; background #e7f1ff; border-radius 50px; color #0a58ca; font-size 0.95rem; border 1px solid #cfe2ff; }
+
+        footer { background #1a3a8f; color white; padding 2.5rem 2rem; text-align center; }
+        footer .logo { justify-content center; margin-bottom 1rem; }
+        .footer-links { margin-top 1.5rem; display flex; justify-content center; gap 2rem; }
+        .footer-links a { color #c5f6fa; text-decoration none; transition color 0.3s; }
+        .footer-links ahover { color white; }
+
+        @media (max-width 992px) { .main-layout { grid-template-columns 1fr; gap 20px; } .status-grid { grid-template-columns repeat(4, 1fr); } .video-info-bar { grid-template-columns repeat(2, 1fr); } }
+        @media (max-width 768px) { header { flex-direction column; gap 1rem; text-align center; } #navbar { flex-wrap wrap; justify-content center; gap 1rem; } .status-grid { grid-template-columns repeat(2, 1fr); } .action-buttons { grid-template-columns 1fr; } .slider-panel { grid-column 1; } }
+    style
+head
+body
+    header
+        div class=logo
+            i class=fas fa-roboti
+            h1MEGASYSTh1
+        div
+        
+        nav
+            ul id=navbar
+                lia href=index.htmlالرئيسيةali
+                lia href=Control.html class=activeالتحكمali
+                lia href=#statusالحالةali
+                lia href=javascriptvoid(0) onclick=toggleSettings() style=cursor pointer;⚙️ الإعداداتali
+                lia href=#contactاتصل بناali
+            ul
+        nav
+    header
+
+    section class=control-panel id=control
+        h2 class=section-titleلوحة تحكم الروبوتh2
+        
+        div class=video-section
+            div class=video-container
+                div class=video-overlay-badges
+                    div class=live-badge
+                        span class=pulse-dotspan لايف
+                    div
+                    div class=recording-badge id=rec-badge style=display none;
+                        i class=fas fa-circlei جاري التسجيل...
+                    div
+                div
+
+                img id=main-video class=video-placeholder crossorigin=anonymous alt=[جاري الاتصال بكاميرا الروبوت...]                
+            div
+            
+            div class=video-info-bar
+                div class=video-info-item
+                    div class=video-info-labeli class=fas fa-videoi الكاميراdiv
+                    div class=video-info-valueالأماميةdiv
+                div
+                div class=video-info-item
+                    div class=video-info-labeli class=fas fa-eyei مجال الرؤيةdiv
+                    div class=video-info-value120°div
+                div
+                div class=video-info-item
+                    div class=video-info-labeli class=fas fa-suni الإضاءةdiv
+                    div class=video-info-value id=light-val-display100%div
+                div
+                div class=video-info-item
+                    div class=video-info-labeli class=fas fa-hddi التخزينdiv
+                    div class=video-info-value32.5 GBdiv
+                div
+            div
+        div
+        
+        div class=main-layout
+
+            div class=panel
+                div class=panel-title
+                    i class=fas fa-robot fa-2xi
+                    h3حالة الروبوتh3
+                div
+                div class=status-grid
+                    div class=status-item
+                        div class=status-labeli class=fas fa-battery-three-quartersi البطاريةdiv
+                        div class=status-value87span%spandiv
+                    div
+                    div class=status-item
+                        div class=status-labeli class=fas fa-map-marker-alti الموقع (الألتراسونيك)div
+                        div class=status-value id=distance-val--spanسمspandiv
+                    div
+                    div class=status-item
+                        div class=status-labeli class=fas fa-videoi الكاميراdiv
+                        div class=status-valueنشطةdiv
+                    div
+                    div class=status-item
+                        div class=status-labeli class=fas fa-wifii حالة الربطdiv
+                        div class=status-value offline id=connection-valغير متصل بالراسبيريdiv
+                        div class=status-value id=web-connection-val style=margin-top0.5rem; font-size0.95rem; color#6c757d;الويب غير متصلdiv
+                    div
+                    div class=status-item
+                        div class=status-labeli class=fas fa-linki رابط الراسبيري بايdiv
+                        div class=status-value id=backend-url-displayhttp192.168.1.108000div
+                    div
+                div
+            div
+
+            div class=panel
+                div class=panel-title
+                    i class=fas fa-gamepadi
+                    h3التحكم بالحركةh3
+                div
+                div class=control-grid
+                    divdiv
+                    button class=control-btn title=تحريك للأعلىi class=fas fa-arrow-upibutton
+                    divdiv
+                    
+                    button class=control-btn title=تحريك لليمينi class=fas fa-arrow-rightibutton
+                    button class=control-btn stop title=إيقافi class=fas fa-stopibutton
+                    button class=control-btn title=تحريك لليسارi class=fas fa-arrow-leftibutton
+                    
+                    divdiv
+                    button class=control-btn title=تحريك للأسفلi class=fas fa-arrow-downibutton
+                    divdiv
+                div
+                
+                button class=scan-btn id=btn-scan
+                    i class=fas fa-playi بدء المسح الضوئي (AI)
+                button
+            div
+
+            div class=panel
+                div class=panel-title
+                    i class=fas fa-bolti
+                    h3الإجراءات السريعةh3
+                div
+                div class=action-buttons
+                    button class=action-btn success id=btn-capture-img
+                        i class=fas fa-camerai
+                        spanالتقاط صورة span class=btn-shortcut[6]spanspan
+                    button
+                    button class=action-btn id=btn-capture-vid
+                        i class=fas fa-videoi
+                        spanتسجيل فيديو span class=btn-shortcut[7]spanspan
+                    button
+
+                    button class=action-btn id=btn-zoom-in
+                        i class=fas fa-search-plusi
+                        spanتكبير span class=btn-shortcut[Ctrl + +]spanspan
+                    button
+                    button class=action-btn id=btn-zoom-out
+                        i class=fas fa-search-minusi
+                        spanتصغير span class=btn-shortcut[Ctrl + -]spanspan
+                    button
+
+                    button class=action-btn id=btn-calibrate
+                        i class=fas fa-sync-alti
+                        spanمعايرة span class=btn-shortcut[Ctrl + R]spanspan
+                    button
+                    button class=action-btn id=btn-home
+                        i class=fas fa-homei
+                        spanالعودة للبداية span class=btn-shortcut[Ctrl + H]spanspan
+                    button
+
+                    div class=action-btn slider-panel
+                        div style=display flex; justify-content space-between; width 100%; margin-bottom 5px; font-weight bold; color #1a3a8f;
+                            spani class=fas fa-suni مؤشر الإضاءةspan
+                            span class=btn-shortcutبواسطة الماوسspan
+                        div
+                        input type=range id=bright-slider min=0.3 max=2 step=0.1 value=1 style=width 100%; cursor pointer;
+                    div
+
+                    button class=action-btn danger id=btn-stop style=grid-column span 2;
+                        i class=fas fa-exclamation-trianglei
+                        spanإيقاف طوارئ span class=btn-shortcut[Ctrl + Space]spanspan
+                    button
+                div
+                
+                div class=info-text id=system-msg
+                    i class=fas fa-info-circlei النظام جاهز. يرجى التأكد من تشغيل خادم الروبوت.
+                div
+            div
+        div
+    section
+
+    footer id=contact
+        div class=logo
+            i class=fas fa-roboti
+            h2MEGASYSTh2
+        div
+        pنظام فحص الأنابيب الذكي – تحويل الصيانة إلى علم تنبؤي دقيق.p
+        p© 2025 فريق MEGASYST. جميع الحقوق محفوظة.p
+        div class=footer-links
+            a href=#i class=fab fa-linkedini LinkedIna
+            a href=#i class=fab fa-twitteri Twittera
+            a href=#i class=fas fa-envelopei Contacta
+        div
+    footer
+
+    !-- إعدادات الاتصال (Settings Modal) --
+    div id=settings-modal style=display none; position fixed; top 0; left 0; width 100%; height 100%; background rgba(0,0,0,0.7); z-index 1000; align-items center; justify-content center; flex-direction column;
+        div style=background white; padding 2rem; border-radius 24px; width 90%; max-width 500px; box-shadow 0 20px 60px rgba(0,0,0,0.3);
+            div style=display flex; justify-content space-between; align-items center; margin-bottom 1.5rem;
+                h3 style=color #1a3a8f; margin 0; font-size 1.5rem;⚙️ إعدادات الاتصالh3
+                button onclick=toggleSettings() style=background none; border none; font-size 1.5rem; cursor pointer; color #666;×button
+            div
+            
+            div style=margin-bottom 1.2rem;
+                label style=display block; margin-bottom 0.5rem; color #1a3a8f; font-weight bold;عنوان IP الراسبري بايlabel
+                input type=text id=robot-ip-input placeholder=192.168.1.10 style=width 100%; padding 0.8rem; border 2px solid #e9ecef; border-radius 8px; font-size 1rem; box-sizing border-box;
+            div
+            
+            div style=margin-bottom 1.2rem;
+                label style=display block; margin-bottom 0.5rem; color #1a3a8f; font-weight bold;منفذ الراسبري بايlabel
+                input type=number id=robot-port-input placeholder=8000 min=1 max=65535 style=width 100%; padding 0.8rem; border 2px solid #e9ecef; border-radius 8px; font-size 1rem; box-sizing border-box;
+            div
+            
+            div style=margin-bottom 1.2rem;
+                label style=display block; margin-bottom 0.5rem; color #1a3a8f; font-weight bold;عنوان IP خادم الذكاء الاصطناعيlabel
+                input type=text id=ai-ip-input placeholder=127.0.0.1 style=width 100%; padding 0.8rem; border 2px solid #e9ecef; border-radius 8px; font-size 1rem; box-sizing border-box;
+            div
+            
+            div style=margin-bottom 1.5rem;
+                label style=display block; margin-bottom 0.5rem; color #1a3a8f; font-weight bold;منفذ خادم الذكاء الاصطناعيlabel
+                input type=number id=ai-port-input placeholder=8001 min=1 max=65535 style=width 100%; padding 0.8rem; border 2px solid #e9ecef; border-radius 8px; font-size 1rem; box-sizing border-box;
+            div
+            
+            div style=display flex; gap 1rem;
+                button onclick=saveSettings() style=flex 1; padding 0.8rem; background #0d6efd; color white; border none; border-radius 8px; font-size 1rem; font-weight bold; cursor pointer; transition all 0.3s;حفظ الإعداداتbutton
+                button onclick=toggleSettings() style=flex 1; padding 0.8rem; background #e9ecef; color #1a3a8f; border none; border-radius 8px; font-size 1rem; font-weight bold; cursor pointer; transition all 0.3s;إلغاءbutton
+            div
+            
+            div id=settings-status style=margin-top 1rem; padding 0.8rem; border-radius 8px; text-align center; display none;div
+        div
+    div
+
+script
+     =========================================================
+     ⚙️ إعدادات الاتصال (API Settings)
+     =========================================================
+    const IMGBB_API_KEY = 10.38.129.168; 
+    
+     🔴 هام عند وضع الكود على الروبوت الفعلي، قم بتغيير 127.0.0.1 إلى IP الروبوت (مثال 192.168.1.10)
+    
+     الحصول على الإعدادات المحفوظة أو استخدام القيم الافتراضية
+    let RASPBERRY_PI_IP = localStorage.getItem('robotIP')  10.38.129.168;
+    let RASPBERRY_PI_PORT = localStorage.getItem('robotPort')  8000;
+    let AI_SERVER_IP = localStorage.getItem('aiServerIP')  127.0.0.1;
+    let AI_SERVER_PORT = localStorage.getItem('aiServerPort')  8001;
+
+    const getBackendUrl = () = `http${RASPBERRY_PI_IP}${RASPBERRY_PI_PORT}`;
+    const getAiServerUrl = () = `http${AI_SERVER_IP}${AI_SERVER_PORT}`;
+
+    const videoElement = document.getElementById('main-video');
+    const recBadge = document.getElementById('rec-badge');
+    const distanceVal = document.getElementById('distance-val');
+    const connectionVal = document.getElementById('connection-val');
+    const webConnectionVal = document.getElementById('web-connection-val');
+    const backendUrlDisplay = document.getElementById('backend-url-display');
+    const systemMsg = document.getElementById('system-msg');
+
+    const updateConnectionInfo = () = {
+        backendUrlDisplay.innerText = getBackendUrl();
+        webConnectionVal.innerText = `الويب ${navigator.onLine  'متصل'  'غير متصل'}`;
+
+        if (connectionVal.classList.contains('offline')) {
+            systemMsg.innerHTML = `i class=fas fa-exclamation-triangle style=color#dc3545;i لم يتم الاتصال بعد بـ ${getBackendUrl()}`;
+        } else {
+            systemMsg.innerHTML = `i class=fas fa-check-circle style=color#28a745;i متصل بـ ${getBackendUrl()}`;
+        }
+    };
+
+     تفعيل بث الكاميرا فوراً من الباك إند
+    videoElement.src = `${getBackendUrl()}video`;
+    updateConnectionInfo();
+
+     =========================================================
+     🕹️ 1. إرسال أوامر الحركة للروبوت
+     =========================================================
+    const sendCommand = async (endpoint, payload = null) = {
+        try {
+            const options = { method payload  POST  GET };
+            if (payload) {
+                options.headers = { Content-Type applicationjson };
+                options.body = JSON.stringify(payload);
+            }
+            const res = await fetch(`${getBackendUrl()}${endpoint}`, options);
+            return await res.json();
+        } catch (error) {
+            console.error(`❌ خطأ في الاتصال بـ ${endpoint}`, error);
+            return null;
+        }
+    };
+
+     ربط الأسهم بأوامر الحركة (الضغط = تحرك، رفع اليد = توقف)
+    const moveButtons = document.querySelectorAll(.control-btn);
+    moveButtons.forEach(button = {
+        const getDirection = () = {
+            const icon = button.querySelector(i).className;
+            if(icon.includes(arrow-up)) return forward;
+            if(icon.includes(arrow-down)) return backward;
+            if(icon.includes(arrow-left)) return left;  السهم لليسار في الشاشة العربية
+            if(icon.includes(arrow-right)) return right;
+            if(icon.includes(stop)) return stop;
+            return stop;
+        };
+
+         أحداث الماوس
+        button.addEventListener(mousedown, () = sendCommand(move, { direction getDirection() }));
+        button.addEventListener(mouseup, () = sendCommand(move, { direction stop }));
+        button.addEventListener(mouseleave, () = sendCommand(move, { direction stop }));
+
+         أحداث اللمس للموبايل
+        button.addEventListener(touchstart, (e) = { e.preventDefault(); sendCommand(move, { direction getDirection() }); });
+        button.addEventListener(touchend, (e) = { e.preventDefault(); sendCommand(move, { direction stop }); });
+    });
+
+     =========================================================
+     📡 2. استعلام مستمر عن حالة الروبوت (Telemetry)
+     =========================================================
+    setInterval(async () = {
+        const data = await sendCommand(distance);
+        if (data && (data.distance_cm !== undefined  data.distance !== undefined)) {
+            const distance = data.distance_cm !== undefined  data.distance_cm  data.distance;
+            distanceVal.innerHTML = `${distance.toFixed(1)}spanسمspan`;
+            connectionVal.innerHTML = `متصل بالراسبيري span(نشط)span`;
+            connectionVal.className = status-value;  إزالة اللون الأحمر
+            connectionVal.style.color = #28a745;  لون أخضر
+            updateConnectionInfo();
+        } else {
+            connectionVal.innerHTML = `غير متصل بالراسبيري span(مفقود)span`;
+            connectionVal.className = status-value offline;
+            connectionVal.style.color = #dc3545;  لون أحمر
+            updateConnectionInfo();
+        }
+    }, 2000);  تحديث كل ثانيتين
+
+    =========================================================
+     🧠 3. تشغيل الذكاء الاصطناعي (AI Scan)
+     =========================================================
+    let isAiMode = false;
+    
+    document.getElementById('btn-scan').addEventListener(click, async () = {
+        const scanBtn = document.getElementById('btn-scan');
+        
+        if (!isAiMode) {
+             تحويل الكاميرا لسيرفر الذكاء الاصطناعي
+            systemMsg.innerHTML = `i class=fas fa-spinner fa-spini جاري الاتصال بخادم الذكاء الاصطناعي...`;
+            videoElement.src = `${getAiServerUrl()}video`;
+            
+            scanBtn.innerHTML = `i class=fas fa-stopi إيقاف المسح الضوئي`;
+            scanBtn.style.background = linear-gradient(145deg, #dc3545, #b02a37);  لون أحمر
+            systemMsg.innerHTML = `i class=fas fa-eye style=color#28a745;i وضع الذكاء الاصطناعي يعمل الآن!`;
+            isAiMode = true;
+        } else {
+             العودة للكاميرا العادية
+            videoElement.src = `${getBackendUrl()}video`;
+            
+            scanBtn.innerHTML = `i class=fas fa-playi بدء المسح الضوئي (AI)`;
+            scanBtn.style.background = linear-gradient(145deg, #0d6efd, #0a58ca);  لون أزرق
+            systemMsg.innerHTML = `i class=fas fa-info-circlei تم إيقاف الذكاء الاصطناعي.`;
+            isAiMode = false;
+        }
+    });
+
+     =========================================================
+     📸 4. التقاط صورة (رفع لـ ImgBB وتحميل للجهاز)
+     =========================================================
+    const captureImage = async () = {
+        try {
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.naturalWidth  800;
+            canvas.height = videoElement.naturalHeight  600;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            
+            const imageDataUrl = canvas.toDataURL('imagejpeg', 0.9);
+
+             تحميل على الجهاز
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageDataUrl;
+            downloadLink.download = `MEGASYST_Image_${Date.now()}.jpg`;
+            downloadLink.click();
+
+             رفع للسيرفر
+            const rawBase64 = imageDataUrl.split(',')[1];
+            const formData = new FormData();
+            formData.append(image, rawBase64);
+
+            alert(⏳ جاري حفظ الصورة على السيرفر...);
+            const response = await fetch(`httpsapi.imgbb.com1uploadkey=${IMGBB_API_KEY}`, { method POST, body formData });
+            const data = await response.json();
+            
+            if (data.success) {
+                alert(✅ تم رفع الصورة للسيرفر بنجاح!nnرابط الصورةn + data.data.url);
+            } else {
+                alert(❌ فشل الرفع للسيرفر.);
+            }
+        } catch (error) {
+            console.error(error);
+            alert(❌ خطأ في التقاط الصورة. تأكد من عمل بث الكاميرا.);
+        }
+    };
+    document.getElementById('btn-capture-img').addEventListener(click, captureImage);
+
+     =========================================================
+     🎥 5. تسجيل الفيديو من بث الصورة (MJPEG)
+     =========================================================
+    let mediaRecorder;
+    let recordedChunks = [];
+    let isRecording = false;
+    let animFrameId;
+    const recordBtn = document.getElementById('btn-capture-vid');
+    
+    const recCanvas = document.createElement('canvas');
+    const recCtx = recCanvas.getContext('2d');
+
+    function drawVideoToCanvas() {
+        if (!isRecording) return;
+        recCanvas.width = videoElement.naturalWidth  800;
+        recCanvas.height = videoElement.naturalHeight  600;
+        recCtx.drawImage(videoElement, 0, 0, recCanvas.width, recCanvas.height);
+        animFrameId = requestAnimationFrame(drawVideoToCanvas);
+    }
+
+    const toggleVideoRecord = () = {
+        if (!isRecording) {
+            try {
+                isRecording = true;
+                drawVideoToCanvas();  بدأ نسخ البث للكانفاس
+                const stream = recCanvas.captureStream(30);  30 إطارثانية
+                mediaRecorder = new MediaRecorder(stream, { mimeType 'videowebm' });
+                
+                mediaRecorder.ondataavailable = e = { if (e.data.size  0) recordedChunks.push(e.data); };
+                mediaRecorder.onstop = () = {
+                    const blob = new Blob(recordedChunks, { type 'videowebm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `MEGASYST_Video_${Date.now()}.webm`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    recordedChunks = [];
+                    alert(🎬 تم تحميل الفيديو على جهازك بنجاح!);
+                };
+                
+                mediaRecorder.start();
+                recBadge.style.display = 'flex';
+                recordBtn.innerHTML = 'i class=fas fa-stop-circlei spanإيقاف التسجيل span class=btn-shortcut style=colorwhite;[7]spanspan';
+                recordBtn.classList.add('danger');
+            } catch (err) {
+                isRecording = false;
+                alert(❌ لا يمكن تسجيل البث حالياً.);
+            }
+        } else {
+            isRecording = false;
+            cancelAnimationFrame(animFrameId);
+            mediaRecorder.stop();
+            recBadge.style.display = 'none';
+            recordBtn.innerHTML = 'i class=fas fa-videoi spanتسجيل فيديو span class=btn-shortcut[7]spanspan';
+            recordBtn.classList.remove('danger');
+        }
+    };
+    recordBtn.addEventListener('click', toggleVideoRecord);
+
+     =========================================================
+     🔍 6. إعدادات العرض (تكبير وإضاءة)
+     =========================================================
+    let currentZoom = 1;
+    document.getElementById('btn-zoom-in').addEventListener('click', () = { currentZoom += 0.2; videoElement.style.transform = `scale(${currentZoom})`; });
+    document.getElementById('btn-zoom-out').addEventListener('click', () = { currentZoom = Math.max(1, currentZoom - 0.2); videoElement.style.transform = `scale(${currentZoom})`; });
+
+    const brightSlider = document.getElementById('bright-slider');
+    const lightDisplay = document.getElementById('light-val-display');
+    brightSlider.addEventListener('input', (e) = {
+        const val = e.target.value;
+        videoElement.style.filter = `brightness(${val})`;
+        lightDisplay.innerText = Math.round(val  100) + %;
+    });
+
+     أزرار إضافية
+    document.getElementById('btn-calibrate').addEventListener('click', () = alert(🔄 جاري المعايرة...));
+    document.getElementById('btn-home').addEventListener('click', () = alert(🏠 جاري العودة لنقطة البداية...));
+    document.getElementById('btn-stop').addEventListener('click', () = {
+        sendCommand(move, { direction stop });
+        alert(⚠️ تم إرسال أمر التوقف الطارئ للروبوت!);
+    });
+
+     =========================================================
+     ⌨️ 7. اختصارات لوحة المفاتيح (Shortcuts)
+     =========================================================
+    document.addEventListener('keydown', (e) = {
+         منع تشغيل الاختصارات عند الكتابة في أي حقل نصي
+        if (e.target.tagName === 'INPUT'  e.target.tagName === 'TEXTAREA') return;
+
+        const key = e.key.toLowerCase();
+        
+         الأرقام تعمل لوحدها مباشرة
+        if (key === '6') { e.preventDefault(); document.getElementById('btn-capture-img').click(); }
+        if (key === '7') { e.preventDefault(); document.getElementById('btn-capture-vid').click(); }
+        
+         باقي الأزرار يجب الضغط على Ctrl معها
+        if (e.ctrlKey) {
+            if (key === '='  key === '+') { e.preventDefault(); document.getElementById('btn-zoom-in').click(); }
+            if (key === '-'  key === '_') { e.preventDefault(); document.getElementById('btn-zoom-out').click(); }
+            if (key === 'r') { e.preventDefault(); document.getElementById('btn-calibrate').click(); }
+            if (key === 'h') { e.preventDefault(); document.getElementById('btn-home').click(); }
+            if (e.code === 'Space') { 
+                e.preventDefault();  لمنع نزول الشاشة
+                document.getElementById('btn-stop').click(); 
+            }
+        }
+    });
+
+     =========================================================
+     ⚙️ 8. إعدادات الاتصال (Settings Management)
+     =========================================================
+    function toggleSettings() {
+        const modal = document.getElementById('settings-modal');
+        if (modal.style.display === 'none'  modal.style.display === '') {
+             تحميل الإعدادات الحالية
+            document.getElementById('robot-ip-input').value = RASPBERRY_PI_IP;
+            document.getElementById('robot-port-input').value = RASPBERRY_PI_PORT;
+            document.getElementById('ai-ip-input').value = AI_SERVER_IP;
+            document.getElementById('ai-port-input').value = AI_SERVER_PORT;
+            modal.style.display = 'flex';
+        } else {
+            modal.style.display = 'none';
+        }
+    }
+
+    function saveSettings() {
+        const newRobotIP = document.getElementById('robot-ip-input').value.trim();
+        const newRobotPort = document.getElementById('robot-port-input').value.trim();
+        const newAiIP = document.getElementById('ai-ip-input').value.trim();
+        const newAiPort = document.getElementById('ai-port-input').value.trim();
+
+        if (!newRobotIP  !newRobotPort  !newAiIP  !newAiPort) {
+            showSettingsStatus('❌ يرجى ملء جميع الحقول', 'error');
+            return;
+        }
+
+         حفظ الإعدادات في Local Storage
+        localStorage.setItem('robotIP', newRobotIP);
+        localStorage.setItem('robotPort', newRobotPort);
+        localStorage.setItem('aiServerIP', newAiIP);
+        localStorage.setItem('aiServerPort', newAiPort);
+
+         تحديث المتغيرات
+        RASPBERRY_PI_IP = newRobotIP;
+        RASPBERRY_PI_PORT = newRobotPort;
+        AI_SERVER_IP = newAiIP;
+        AI_SERVER_PORT = newAiPort;
+
+         تحديث العنوان المعروض وحالة الاتصال
+        videoElement.src = `${getBackendUrl()}video`;
+        updateConnectionInfo();
+
+        showSettingsStatus('✅ تم حفظ الإعدادات بنجاح! تم إعادة تحميل الاتصالات.', 'success');
+        
+        setTimeout(() = {
+            toggleSettings();
+        }, 2000);
+    }
+
+    function showSettingsStatus(message, type) {
+        const statusDiv = document.getElementById('settings-status');
+        statusDiv.innerHTML = message;
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = type === 'success'  '#d4edda'  '#f8d7da';
+        statusDiv.style.color = type === 'success'  '#155724'  '#721c24';
+        statusDiv.style.border = type === 'success'  '1px solid #c3e6cb'  '1px solid #f5c6cb';
+    }
+
+     إغلاق الإعدادات عند الضغط خارج النافذة
+    document.getElementById('settings-modal').addEventListener('click', (e) = {
+        if (e.target.id === 'settings-modal') {
+            toggleSettings();
+        }
+    });
+script
+body
+html

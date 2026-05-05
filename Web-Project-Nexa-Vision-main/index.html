@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!-- محمد صلاح فرغلي -->
+ <!-- مساعدة أحمد محمد مصطفي -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGASYST - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a8f 50%, #0d6efd 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0d6efd, #4dabf7, #0d6efd);
+            background-size: 200% 100%;
+            animation: waveGradient 3s linear infinite;
+        }
+
+        @keyframes waveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-section i {
+            font-size: 3rem;
+            color: #1a3a8f;
+            margin-bottom: 1rem;
+        }
+
+        .logo-section h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a3a8f;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-section p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0d6efd 0%, #1a3a8f 100%);
+            color: white;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        .register-btn {
+            width: 100%;
+            background: transparent;
+            color: #0d6efd;
+            padding: 0.9rem;
+            border: 2px solid #0d6efd;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .message {
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0d6efd;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .form-toggle button {
+            background: none;
+            border: none;
+            color: #0d6efd;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .form-toggle button:hover {
+            color: #1a3a8f;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" x-data="loginForm()">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <i class="fas fa-robot"></i>
+            <h1>MEGASYST</h1>
+            <p>نظام فحص الأنابيب الذكي</p>
+        </div>
+
+        <nav>
+            <ul id="navbar">
+                <li><a class="active" href="#home">الرئيسية</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#tech">التقنية</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="/Dashboard/Dashboard.html">عرض البيانات</a></li>
+                <li><a href="/Control.html">نظام التحكم</a></li>
+            </ul>
+        </nav>
+
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input
+                    type="text"
+                    id="username"
+                    x-model="loginData.username"
+                    placeholder="أدخل اسم المستخدم"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input
+                    type="password"
+                    id="password"
+                    x-model="loginData.password"
+                    placeholder="أدخل كلمة المرور"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="login-btn" :disabled="loading">
+                <span x-show="loading" class="loading"></span>
+                <span x-show="!loading">دخول</span>
+            </button>
+
+            <button type="button" class="register-btn" @click="showRegister = true">
+                إنشاء حساب جديد
+            </button>
+        </form>
+
+        <!-- Register Form -->
+        <form x-show="showRegister" @submit.prevent="handleRegister()">
+            <h2 class="text-xl font-bold text-center mb-6 text-gray-800">إنشاء حساب</h2>
+
+            <div class="form-group">
+                <label for="reg-username">اسم المستخدم</label>
+                <input
+                    type="text"
+                    id="reg-username"
+                    x-model="registerData.username"
+                    placeholder="اختر اسم مستخدم"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="reg-email">البريد الإلكتروني</label>
+                <input
+                    type="email"
+                    id="reg-email"
+                    x-model="registerData.email"
+                    placeholder="أدخل البريد الإلكتروني"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="reg-password">كلمة المرور</label>
+                <input
+                    type="password"
+                    id="reg-password"
+                    x-model="registerData.password"
+                    placeholder="أدخل كلمة مرور (6 أحرف على الأقل)"
+                    minlength="6"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="reg-role">نوع الحساب</label>
+                <select id="reg-role" x-model="registerData.role" required>
+                    <option value="user">مستخدم عادي</option>
+                    <option value="admin">أدمن</option>
+                </select>
+            </div>
+
+            <button type="submit" class="login-btn" :disabled="loading">
+                <span x-show="loading" class="loading"></span>
+                <span x-show="!loading">إنشاء الحساب</span>
+            </button>
+
+            <div class="form-toggle">
+                <button type="button" @click="showRegister = false">العودة لتسجيل الدخول</button>
+            </div>
+        </form>
+
+        <!-- Messages -->
+        <div x-show="errorMessage" class="message error-message" x-text="errorMessage"></div>
+        <div x-show="successMessage" class="message success-message" x-text="successMessage"></div>
+    </div>
+
+    <script>
+        function loginForm() {
+            return {
+                showRegister: false,
+                loading: false,
+                loginData: {
+                    username: '',
+                    password: ''
+                },
+                registerData: {
+                    username: '',
+                    email: '',
+                    password: '',
+                    role: 'user'
+                },
+                errorMessage: '',
+                successMessage: '',
+
+                async checkAuth() {
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        try {
+                            const response = await fetch('http://localhost:8000/api/auth/me', {
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+
+                            if (response.ok) {
+                                const userData = await response.json();
+                                this.redirectBasedOnRole(userData.role);
+                                return;
+                            }
+                        } catch (error) {
+                            console.error('Auth check failed:', error);
+                        }
+                        localStorage.removeItem('token');
+                    }
+                },
+
+                async handleLogin() {
+                    this.loading = true;
+                    this.errorMessage = '';
+                    this.successMessage = '';
+
+                    try {
+                        const response = await fetch('http://localhost:8000/api/auth/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.loginData)
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            localStorage.setItem('token', data.access_token);
+
+                            this.successMessage = 'تم تسجيل الدخول بنجاح!';
+                            setTimeout(() => {
+                                this.redirectBasedOnRole(data.user.role);
+                            }, 1000);
+                        } else {
+                            const error = await response.json();
+                            this.errorMessage = error.detail || 'فشل في تسجيل الدخول';
+                        }
+                    } catch (error) {
+                        this.errorMessage = 'خطأ في الشبكة: ' + error.message;
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                async handleRegister() {
+                    this.loading = true;
+                    this.errorMessage = '';
+                    this.successMessage = '';
+
+                    try {
+                        const response = await fetch('http://localhost:8000/api/auth/register', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.registerData)
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            localStorage.setItem('token', data.access_token);
+
+                            this.successMessage = 'تم إنشاء الحساب بنجاح!';
+                            setTimeout(() => {
+                                this.redirectBasedOnRole(data.user.role);
+                            }, 1000);
+                        } else {
+                            const error = await response.json();
+                            this.errorMessage = error.detail || 'فشل في إنشاء الحساب';
+                        }
+                    } catch (error) {
+                        this.errorMessage = 'خطأ في الشبكة: ' + error.message;
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                redirectBasedOnRole(role) {
+                    if (role === 'admin') {
+                        window.location.href = 'AdminDashboard.html';
+                    } else {
+                        window.location.href = 'HomePage.html';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

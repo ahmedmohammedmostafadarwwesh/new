@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+motor
+pydantic
+pydantic[email]
+python-dotenv
+PyJWT
+bcrypt
+httpx
+aiohttp
+RPi.GPIO

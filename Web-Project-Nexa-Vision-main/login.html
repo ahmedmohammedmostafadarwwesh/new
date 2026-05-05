@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGASYST | تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d6efd 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .login-header i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #4dabf7;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1a3a8f;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0d6efd;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(145deg, #0d6efd, #0a58ca);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .register-link p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .register-link a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #0a58ca;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #dc3545;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #28a745;
+        }
+
+        .form-toggle {
+            display: none;
+        }
+
+        .form-toggle.active {
+            display: block;
+        }
+
+        .mode-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+        }
+
+        .mode-tab {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .mode-tab.active {
+            background: white;
+            color: #0d6efd;
+            border-bottom-color: #0d6efd;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .forgot-password a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #0a58ca;
+        }
+
+        @media (max-width: 600px) {
+            .login-container { max-width: 100%; margin: 1rem; }
+            .login-header { padding: 2rem 1rem; }
+            .login-form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fas fa-robot"></i>
+            <h1>MEGASYST</h1>
+            <p>نظام فحص الأنابيب الذكي</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="mode-tabs">
+                <button type="button" class="mode-tab active" id="loginTab">تسجيل الدخول</button>
+                <button type="button" class="mode-tab" id="registerTab">إنشاء حساب</button>
+            </div>
+
+            <div class="error-message" id="errorMsg"></div>
+            <div class="success-message" id="successMsg"></div>
+
+            <!-- تسجيل الدخول -->
+            <div class="form-toggle active" id="loginForm_content">
+                <div class="form-group">
+                    <label for="loginUsername"><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="loginUsername" placeholder="أدخل اسم المستخدم" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword"><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" required>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+
+                <div class="forgot-password">
+                    <a href="#"><i class="fas fa-question-circle"></i> هل نسيت كلمة المرور؟</a>
+                </div>
+            </div>
+
+            <!-- إنشاء حساب -->
+            <div class="form-toggle" id="registerForm_content">
+                <div class="form-group">
+                    <label for="regUsername"><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="regUsername" placeholder="اختر اسم مستخدم" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword"><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="regPassword" placeholder="كلمة مرور قوية" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPasswordConfirm"><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
+                    <input type="password" id="regPasswordConfirm" placeholder="تأكيد كلمة المرور" required>
+                </div>
+
+                <button type="button" class="login-btn" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> إنشاء الحساب
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const DASHBOARD_API = "http://localhost:8001";
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+
+        // تبديل بين تسجيل الدخول والتسجيل
+        document.getElementById('loginTab').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('loginForm_content').classList.add('active');
+            document.getElementById('registerForm_content').classList.remove('active');
+            document.getElementById('loginTab').classList.add('active');
+            document.getElementById('registerTab').classList.remove('active');
+            clearMessages();
+        });
+
+        document.getElementById('registerTab').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('registerForm_content').classList.add('active');
+            document.getElementById('loginForm_content').classList.remove('active');
+            document.getElementById('registerTab').classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+            clearMessages();
+        });
+
+        const clearMessages = () => {
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+        };
+
+        const showError = (message) => {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            successMsg.style.display = 'none';
+        };
+
+        const showSuccess = (message) => {
+            successMsg.textContent = message;
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+        };
+
+        // تسجيل الدخول
+        document.getElementById('loginBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showError('يرجى ملء جميع الحقول');
+                return;
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="spinner"></span> جاري المعالجة...';
+
+            try {
+                const response = await fetch(`${DASHBOARD_API}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('nexavision_token', data.access_token);
+                    localStorage.setItem('nexavision_user', JSON.stringify(data.user));
+                    showSuccess('✅ تم تسجيل الدخول بنجاح! جاري التوجيه...');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'Control.html';
+                    }, 1500);
+                } else {
+                    showError(data.detail || 'فشل تسجيل الدخول');
+                }
+            } catch (error) {
+                showError('خطأ في الاتصال: ' + error.message);
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+            }
+        });
+
+        // إنشاء حساب
+        document.getElementById('registerBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+
+            if (!username || !email || !password || !passwordConfirm) {
+                showError('يرجى ملء جميع الحقول');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                showError('كلمات المرور غير متطابقة');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="spinner"></span> جاري الإنشاء...';
+
+            try {
+                const response = await fetch(`${DASHBOARD_API}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        username, 
+                        email, 
+                        password, 
+                        role: 'user' 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('nexavision_token', data.access_token);
+                    localStorage.setItem('nexavision_user', JSON.stringify(data.user));
+                    showSuccess('✅ تم إنشاء الحساب بنجاح! جاري التوجيه...');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'Control.html';
+                    }, 1500);
+                } else {
+                    showError(data.detail || 'فشل إنشاء الحساب');
+                }
+            } catch (error) {
+                showError('خطأ في الاتصال: ' + error.message);
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> إنشاء الحساب';
+            }
+        });
+
+        // التحقق من المستخدم الموجود
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('nexavision_token');
+            if (token) {
+                // المستخدم مسجل دخول بالفعل
+                window.location.href = 'Control.html';
+            }
+        });
+    </script>
+</body>
+</html>
